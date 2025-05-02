@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pizza menu</title>
+    <link rel="stylesheet" href="restaurant.css">
+</head>
+<body>
+
+    
+    <div class="logo-container">
+        <header class="navbar">
+            <img src="logo2.jpg" alt="Restaurant Logo" class="logo">
+            
+            <div class="nav-links">
+                <button class="back-btn" onclick="goBack()"><span>&#8592;</span></button>
+                  <a href="contact.html" class="contact-link">Contact Us</a>
+                  <a href="cart.html" class="cart-link">🛒</a>
+              </div>
+          <!--  <input type="text" class="search-bar" placeholder="Search...">-->
+
+        </header>
+    </div>
+
+   
+    <div class="container_burger">
+        
+
+        
+        <div class="burger-menu">
+
+            <div class="burger-item">
+                <img src="download__8_-removebg-preview.png" alt="" class="burger-img">
+                <div class="burger-info">
+                    <h2>Margherita Pizza</h2>
+                    <p>Classic pizza with fresh tomato sauce, mozzarella, and basil.</p>
+                    <button class="order-btn" onclick="addToCart('Margherita Pizza', 7.99, 'download__8_-removebg-preview.png')">Order Now</button>
+                </div>
+            </div>
+
+            <div class="burger-item">
+                <img src="download__8_-removebg-preview.png" alt="Pepperoni Pizza" class="burger-img">
+                <div class="burger-info">
+                    <h2>Pepperoni Pizza</h2>
+                    <p>Delicious pepperoni slices on top of melted cheese and tomato sauce.</p>
+                    <button class="order-btn" onclick="addToCart('Pepperoni Pizza', 8.99, 'download__8_-removebg-preview.png')">Order Now</button>
+                </div>
+            </div>
+
+            <div class="burger-item">
+                <img src="download__8_-removebg-preview.png" alt="BBQ Chicken Pizza" class="burger-img">
+                <div class="burger-info">
+                    <h2>BBQ Chicken Pizza</h2>
+                    <p>Smoky BBQ sauce, grilled chicken, onions, and mozzarella cheese.</p>
+                    <button class="order-btn" onclick="addToCart('BBQ Chicken Pizza', 9.99, 'download__8_-removebg-preview.png')">Order Now</button>
+                </div>
+            </div>
+
+            <div class="burger-item">
+                <img src="download__8_-removebg-preview.png" alt="Veggie Pizza" class="burger-img">
+                <div class="burger-info">
+                    <h2>Veggie Pizza</h2>
+                    <p>Loaded with fresh bell peppers, mushrooms, olives, and onions.</p>
+                    <button class="order-btn" onclick="addToCart('Veggie Pizza', 7.49, 'download__8_-removebg-preview.png')">Order Now</button>
+                </div>
+            </div>
+
+            <div id="dynamic-food"></div>
+
+        </div>
+
+        
+
+    </div>
+
+    <script>
+        function goBack() {
+            window.location.href = "index.html"; 
+        }
+
+        function loadDynamicFood() {
+      const foodItems = JSON.parse(localStorage.getItem("foodItems")) || [];
+      const container = document.getElementById("dynamic-food");
+      container.innerHTML = "";
+
+      // Only show items from the 'burger' category
+      const burgers = foodItems.filter(item => item.category === "pizza");
+
+      burgers.forEach(item => {
+        const div = document.createElement("div");
+        div.className = "burger-item";
+        div.innerHTML = `
+          <img src="${item.image}" class="burger-img" alt="${item.name}">
+          <div class="burger-info">
+            <h2>${item.name}</h2>
+            <p>${item.description}</p>
+            <button class="order-btn" onclick="addToCart('${item.name}', 0, '${item.image}')">Order now</button>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    window.onload = loadDynamicFood;
+    
+    </script>
+
+<script src="order.js"></script>
+
+</body>
+</html>
